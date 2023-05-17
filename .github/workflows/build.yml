@@ -1,0 +1,19 @@
+name: build
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env: 
+      COVERALLS_TOKEN: ${{ secrets.COVERALLS_TOKEN }}
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3.5.2
+        
+      - name: java setup
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu' 
+          java-version: '8'
+          
+      - name: build with maven
+        run: mvn -q verify
